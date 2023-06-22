@@ -2,6 +2,9 @@ package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+import java.util.Set;
+
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,13 +15,13 @@ public class Book {
     @ManyToMany
     @JoinTable(name= "author_book", joinColumns=@JoinColumn(name="book_id"), inverseJoinColumns = @JoinColumn(name="author_id"))
 
-   private Set<Author> author;
+   private java.util.Set<Author> author;
 
-    public Set<Author> getAuthor() {
+    public java.util.Set<Author> getAuthor() {
         return author;
     }
 
-    public void setAuthor(Set<Author> author) {
+    public void setAuthor(java.util.Set<Author> author) {
         this.author = author;
     }
 
@@ -44,5 +47,29 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", author=" + author +
+                '}';
     }
 }

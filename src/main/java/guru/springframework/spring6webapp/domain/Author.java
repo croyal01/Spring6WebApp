@@ -1,6 +1,9 @@
 package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.mapping.Set;
+
+import java.util.Objects;
 
 @Entity
 public class Author {
@@ -12,12 +15,12 @@ public class Author {
     private String lastName;
 
 @ManyToMany(mappedBy = "authors")
-    private Set<Book> book;
+    private java.util.Set<Book> book;
 
-    public Set<Book> getBook() {
+    public java.util.Set<Book> getBook() {
         return book;
     }
-    public void setBook(Set<Book> book) {
+    public void setBook(java.util.Set<Book> book) {
         this.book = book;
     }
 
@@ -43,5 +46,29 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(id, author.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", book=" + book +
+                '}';
     }
 }
