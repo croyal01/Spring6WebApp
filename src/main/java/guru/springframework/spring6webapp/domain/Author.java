@@ -1,27 +1,31 @@
 package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.mapping.Set;
 
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @Entity
 public class Author {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
     private String firstName;
     private String lastName;
 
-@ManyToMany(mappedBy = "authors")
-    private java.util.Set<Book> book;
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books = new HashSet<>();
 
-    public java.util.Set<Book> getBook() {
-        return book;
+    public Set<Book> getBooks() {
+        return books;
     }
-    public void setBook(java.util.Set<Book> book) {
-        this.book = book;
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     public Long getId() {
@@ -48,27 +52,39 @@ public class Author {
         this.lastName = lastName;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Author author = (Author) o;
-        return Objects.equals(id, author.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
-
     @Override
     public String toString() {
         return "Author{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", book=" + book +
+                ", books=" + books +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Author)) return false;
+
+        Author author = (Author) o;
+
+        return getId() != null ? getId().equals(author.getId()) : author.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
