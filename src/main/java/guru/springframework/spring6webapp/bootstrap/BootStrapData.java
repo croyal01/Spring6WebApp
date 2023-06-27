@@ -48,8 +48,6 @@ public class BootstrapData implements CommandLineRunner {
         pub.setAddress("2 M Way");
         pub.setName("AudioBookHeavan");
 
-
-
         Author ericSaved = authorRepository.save(eric);
         Book dddSaved = bookRepository.save(ddd);
         Publisher pubSaved = publisherRepository.save(pub);
